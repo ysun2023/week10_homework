@@ -1,0 +1,109 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "World Happiness Report (2016)",
+    "width": 800,
+    "height": 600,
+    "data": {"url": "https://ysun2023.github.io/week10_homework/data/2016.csv"},
+    "params": [
+      {
+        "name": "Happiness_Below",
+        "value": 0,
+        "bind": {
+          "input": "range",
+          "min": 0,
+          "max": 10,
+          "step": 0.1,
+          "name": "Maximum Happiness Score: "
+        }
+      },
+      {
+        "name": "Region_selection",
+        "bind": {
+          "input": "select",
+          "options": [
+            null,
+            "Australia and New Zealand",
+            "Central and Eastern Europe",
+            "Eastern Asia",
+            "Latin America and Caribbean",
+            "Middle East and Northern Africa",
+            "North America",
+            "Southeastern Asia",
+            "Southern Asia",
+            "Sub-Saharan Africa",
+            "Western Europe"
+          ],
+          "name": "Region Selection: "
+        }
+      }
+    ],
+    "transform": [
+      {"filter": "datum['Happiness Score'] > Happiness_Below"},
+      {"filter": "Region_selection == null || datum.Region == Region_selection"}
+    ],
+    "mark": "circle",
+    "encoding": {
+      "x": {
+        "field": "Happiness Score",
+        "type": "quantitative",
+        "title": "Happiness Score",
+        "axis": {"tickCount": 8},
+        "scale": {"domain": [2.5, 8]}
+      },
+      "y": {
+        "field": "Economy (GDP per Capita)",
+        "type": "quantitative",
+        "title": "GDP per Capita",
+        "axis": {"tickCount": 6},
+        "scale": {"domain": [0, 2]}
+      },
+      "color": {
+        "field": "Region",
+        "type": "nominal",
+        "scale": {
+          "domain": [
+            "Australia and New Zealand",
+            "Central and Eastern Europe",
+            "Eastern Asia",
+            "Latin America and Caribbean",
+            "Middle East and Northern Africa",
+            "North America",
+            "Southeastern Asia",
+            "Southern Asia",
+            "Sub-Saharan Africa",
+            "Western Europe"
+          ],
+          "range": [
+            "#e41a1c",
+            "#984ea3",
+            "#ff7f00",
+            "#addd8e",
+            "#377eb8",
+            "#a65628",
+            "#fc9272",
+            "#fc9272",
+            "#feb24c",
+            "#bcbddc"
+          ]
+        }
+      },
+      "size": {
+        "field": "Generosity",
+        "type": "quantitative",
+        "title": "Generosity",
+        "scale": {
+          "type": "threshold",
+          "domain": [0.1, 0.2, 0.3, 0.4, 0.5],
+          "range": [20, 100, 200, 300, 400, 500]
+        },
+        "legend": {"format": ".1%"}
+      },
+      "tooltip": [
+        {"field": "Country", "type": "nominal", "title": "Country"},
+        {"field": "Happiness Score", "type": "quantitative", "title": "Happiness Score"},
+        {"field": "Economy (GDP per Capita)", "type": "quantitative", "title": "GDP per Capita"},
+        {"field": "Generosity", "type": "quantitative", "title": "Generosity"}
+      ]
+    }
+  }
+  
