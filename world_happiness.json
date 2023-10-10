@@ -55,7 +55,7 @@
         "type": "quantitative",
         "title": "GDP per Capita",
         "axis": {"tickCount": 6},
-        "scale": {"domain": [0, 2]}
+        "scale": {"domain": [-0.2, 2]}
       },
       "color": {
         "field": "Region",
